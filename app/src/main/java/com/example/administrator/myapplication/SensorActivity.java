@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +86,7 @@ public class SensorActivity extends Activity {
                             TokenoneBean.class);
                     if (tokenoneBean.getStatusCode() == 0) {
                         Toast.makeText(SensorActivity.this,"成功",Toast.LENGTH_LONG).show();
+
                     } else {
                         //获取失败 } }
                     }
@@ -130,7 +132,7 @@ public class SensorActivity extends Activity {
         new Thread(r).start();
     }
     public void onClick2(View view) {
-        new Thread(r2).start();
+        new Thread(r2).start(  );
     }
     public void onClick4(View view) {
         new Thread(r4).start();
@@ -187,7 +189,7 @@ public class SensorActivity extends Activity {
         BufferedReader reader = null;
         try {
       //      URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367&apiTag=ufodhdmndupl &AccessToken="+Api.getToken());
-            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId="+60367+"&apiTag="+"ufodhdmndupl" +"&AccessToken="+Api.getToken());
+            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367"+"&apiTag="+"ufodhdmndupl" +"&AccessToken="+Api.getToken());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("connection", "Keep-Alive");
