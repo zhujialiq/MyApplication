@@ -98,26 +98,48 @@ public class SensorActivity extends Activity {
         @Override
         public void run() {
             requestProject();
+        }
+    };
+    Runnable r2 = new Runnable() {
+        @Override
+        public void run() {
             requestProject1();
         }
     };
+    Runnable r4 = new Runnable() {
+        @Override
+        public void run() {
+            requestProject2();
+        }
+    };
+    Runnable r3 = new Runnable() {
+        @Override
+        public void run() {
+            requestProject3();
+        }
+    };
+    Runnable r5 = new Runnable() {
+        @Override
+        public void run() {
+            requestProject4();
+        }
+    };
+
 
     public void onClick(View view) {
         new Thread(r).start();
-        switch (view.getId()){
-            case R.id.btn2:
-
-                break;
-            case R.id.btn4:
-
-                break;
-            case R.id.btn3:
-
-                break;
-            case R.id.btn5:
-
-                break;
-        }
+    }
+    public void onClick2(View view) {
+        new Thread(r2).start();
+    }
+    public void onClick4(View view) {
+        new Thread(r4).start();
+    }
+    public void onClick3(View view) {
+        new Thread(r3).start();
+    }
+    public void onClick5(View view) {
+        new Thread(r5).start();
     }
 
     private void requestProject() {
@@ -158,11 +180,14 @@ public class SensorActivity extends Activity {
         }
     }
 
+
+
     private void requestProject1() {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         try {
-            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367&apiTag=ufodhdmndupl &AccessToken="+Api.getToken());
+      //      URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367&apiTag=ufodhdmndupl &AccessToken="+Api.getToken());
+            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId="+60367+"&apiTag="+"ufodhdmndupl" +"&AccessToken="+Api.getToken());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("connection", "Keep-Alive");
@@ -171,6 +196,139 @@ public class SensorActivity extends Activity {
             //     connection.setRequestProperty("AccessToken",Api.getToken() ); //设置Token
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
+            OutputStream outputStream=connection.getOutputStream();
+            outputStream.write(1);
+            outputStream.flush();
+            outputStream.close();
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream in = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                Gson gson = new Gson();
+                TokenoneBean tokenoneBean = gson.fromJson(response.toString(), TokenoneBean.class);
+                if (tokenoneBean.getStatusCode() == 0) {//获取成功
+                    //把解析出来的msg内容发送给主线程进行显示
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = response;
+                    handler1.sendMessage(msg);
+                } else {
+                    //获取失败 } }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void requestProject2() {
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        try {
+            //      URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367&apiTag=ufodhdmndupl &AccessToken="+Api.getToken());
+            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId="+60367+"&apiTag="+"ufodhdmndupl" +"&AccessToken="+Api.getToken());
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Charset", "UTF-8");
+            connection.setRequestProperty("Content-Type", "application/json");
+            //     connection.setRequestProperty("AccessToken",Api.getToken() ); //设置Token
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            OutputStream outputStream=connection.getOutputStream();
+            outputStream.write(0);
+            outputStream.flush();
+            outputStream.close();
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream in = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                Gson gson = new Gson();
+                TokenoneBean tokenoneBean = gson.fromJson(response.toString(), TokenoneBean.class);
+                if (tokenoneBean.getStatusCode() == 0) {//获取成功
+                    //把解析出来的msg内容发送给主线程进行显示
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = response;
+                    handler1.sendMessage(msg);
+                } else {
+                    //获取失败 } }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void requestProject3() {
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        try {
+            //      URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367&apiTag=ufodhdmndupl &AccessToken="+Api.getToken());
+            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId="+60367+"&apiTag="+"ztynaxmpbgmw" +"&AccessToken="+Api.getToken());
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Charset", "UTF-8");
+            connection.setRequestProperty("Content-Type", "application/json");
+            //     connection.setRequestProperty("AccessToken",Api.getToken() ); //设置Token
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            OutputStream outputStream=connection.getOutputStream();
+            outputStream.write(1);
+            outputStream.flush();
+            outputStream.close();
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream in = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                Gson gson = new Gson();
+                TokenoneBean tokenoneBean = gson.fromJson(response.toString(), TokenoneBean.class);
+                if (tokenoneBean.getStatusCode() == 0) {//获取成功
+                    //把解析出来的msg内容发送给主线程进行显示
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = response;
+                    handler1.sendMessage(msg);
+                } else {
+                    //获取失败 } }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void requestProject4() {
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        try {
+            //      URL url = new URL("http://api.nlecloud.com/Cmds?deviceId=60367&apiTag=ufodhdmndupl &AccessToken="+Api.getToken());
+            URL url = new URL("http://api.nlecloud.com/Cmds?deviceId="+60367+"&apiTag="+"ztynaxmpbgmw" +"&AccessToken="+Api.getToken());
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Charset", "UTF-8");
+            connection.setRequestProperty("Content-Type", "application/json");
+            //     connection.setRequestProperty("AccessToken",Api.getToken() ); //设置Token
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            OutputStream outputStream=connection.getOutputStream();
+            outputStream.write(0);
+            outputStream.flush();
+            outputStream.close();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(in));
